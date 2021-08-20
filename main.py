@@ -177,6 +177,8 @@ def agregarComida():
 def avanzar():
     global matriz, culebrita, agregarCelda, jugando, pausa, fin, velocidad
 
+    comida = False
+
     posAnt = [culebrita[0].pos[0], culebrita[0].pos[1]]
 
     posCabeza = posAnt
@@ -214,10 +216,10 @@ def avanzar():
 
         #asignando datos a matríz
         matriz[posAnt[1]][posAnt[0]] = 0
-        if matriz[culebrita[0].pos[1]][culebrita[0].pos[0]] == 3 :
+        if matriz[culebrita[0].pos[1]][culebrita[0].pos[0]] == 3:
             agregarCelda = True
             velocidad = velocidad + incrementoVelocidad
-            agregarComida()
+            comida = True
         matriz[culebrita[0].pos[1]][culebrita[0].pos[0]] = 1
 
 
@@ -238,6 +240,9 @@ def avanzar():
             culebrita.append(celda([cola[0], cola[1]]))
             matriz[cola[1]][cola[0]] = 1
             agregarCelda = False
+
+    if comida:
+        agregarComida()
 
 def inicializar():
     global inicio, jugando, pausa, fin, matriz, culebrita, velocidad, espera
@@ -298,21 +303,21 @@ if __name__ == "__main__" :
                         direccion = "derecha"
                 elif len(culebrita) > 1 :
                     if evento.key == pygame.K_UP:
-                        if direccion == "izquierda" or direccion == "derecha" or direccion == "":
-                            if culebrita[1].pos[1] >=  culebrita[0].pos[1]:
-                                direccion = "arriba"
+
+                        if culebrita[1].pos[1] >=  culebrita[0].pos[1]:
+                            direccion = "arriba"
                     if evento.key == pygame.K_DOWN:
-                        if direccion == "izquierda" or direccion == "derecha" or direccion == "":
-                            if culebrita[1].pos[1] <= culebrita[0].pos[1]:
-                                direccion = "abajo"
+
+                        if culebrita[1].pos[1] <= culebrita[0].pos[1]:
+                            direccion = "abajo"
                     if evento.key == pygame.K_LEFT:
-                        if direccion == "arriba" or direccion == "abajo" or direccion == "":
-                            if culebrita[1].pos[0] >= culebrita[0].pos[0]:
-                                direccion = "izquierda"
+
+                        if culebrita[1].pos[0] >= culebrita[0].pos[0]:
+                            direccion = "izquierda"
                     if evento.key == pygame.K_RIGHT:
-                        if direccion == "arriba" or direccion == "abajo" or direccion == "":
-                            if culebrita[1].pos[0] <= culebrita[0].pos[0]:
-                                direccion = "derecha"
+
+                        if culebrita[1].pos[0] <= culebrita[0].pos[0]:
+                            direccion = "derecha"
                 else:
                     direccion = ""
 
